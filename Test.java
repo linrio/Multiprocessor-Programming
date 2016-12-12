@@ -62,7 +62,7 @@ public class Test {
 		System.out.println("10000次购票，查询，退票开始！");
 		long starTime=System.currentTimeMillis();
 //		try{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 128; i++) {
 			TdsThread tdsThread = new TdsThread(tds, i*THREAD_EXE_NUM/THREAD_NUM, (i+1)*THREAD_EXE_NUM/THREAD_NUM);
 			tdsThread.start();
 		}
@@ -88,8 +88,8 @@ public class Test {
 		System.out.println("主线程for循环执行完毕..");
 		long endTime=System.currentTimeMillis();
 		//Thread.sleep(5000);
-		long Time=endTime-starTime;
-		System.out.println("4个线程执行时间：" + Time);
+		//long Time=endTime-starTime;
+		//System.out.println("4个线程执行时间：" + Time);
 		
 		
 		
