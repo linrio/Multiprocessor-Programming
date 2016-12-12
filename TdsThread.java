@@ -1,11 +1,13 @@
 package ticketingsystem;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TdsThread extends Thread {
 	private TicketingDS tds;
 	private int interval;
 	private int start;
+	Time time;
 	
 	public TdsThread(TicketingDS tds, int start, int interval) {
 		this.tds = tds;
@@ -13,7 +15,41 @@ public class TdsThread extends Thread {
 		this.interval = interval; // 区间长度
 	}
 	
+	public class Time{
+		ArrayList<Long> time = new ArrayList<Long>();
+		public void time(long i){};
+		public void addTid(long i){
+			time.add(i);
+		}
+		public void removeTid(long i){
+			time.remove(i);
+		}
+		public boolean containsTid(long i){
+			return time.contains(i);
+		}
+		public long TimeMax(){
+			try{
+				long maxD = 0;
+				int totalCount = time.size();
+				if(totalCount >= 1){
+					long max = (long) Double.parseDouble(time.get(0).toString());
+					for(int i=0;i<=totalCount;i++){
+						long temp = (long) Double.parseDouble(time.get(i).toString());
+						if(temp > max){
+							max = temp;
+						}
+					}maxD = max;
+				}
+				return maxD;
+			}catch(Exception ex){
+				throw ex;
+			}
+		}
+		
+	}
+	
 	public void run() {
+		long starTime=System.currentTimeMillis();
 		final int THREAD_EXE_NUM = 10000;
 		for (int i = start; i < start + interval; i++) {
 			//System.out.println(Thread.currentThread().getName() + " " + i);
@@ -49,6 +85,12 @@ public class TdsThread extends Thread {
 						System.out.println("退票：票号为 "+ticket.tid+"退票状态为" + refund+". 注：false 表示退票失败！");
 				}			
 		}
+	long endTime=System.currentTimeMillis();
+	long Time=endTime-starTime;
+	System.out.println("128个线程执行时间 "+Time);
+	//time.addTid(Time);
+	//long max = time.TimeMax();
+	//System.out.println("max:"+max);
 	}
 	
 }
